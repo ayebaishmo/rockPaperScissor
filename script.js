@@ -1,33 +1,55 @@
-const choice = ['rock', 'paper', 'scissors'];
- const random =Math.floor(Math.random() * choice.length);
- const computerSelection = (random, choice[random]);
- console.log(computerSelection);
+let playerScore = 0;
+let compScore = 0;
+let playerWins;
 
-const playerSelection = 'rock';
-console.log(playerSelection)
-
-if(computerSelection === playerSelection) {
- console.log('Draw');
+function getComputerChoice() {
+  let choice = ['rock', 'paper', 'scissors'];
+ return choice[~~(Math.random() * choice.length)]
 }
-else {
- console.log('One of you has won')
+
+function singleRound(answer, getComputerChoice) {
+let computerSelection= getComputerChoice().toLowerCase();
+let playerSelection = answer.toLowerCase();
+
+  if(computerSelection == playerSelection) {
+    playerWins = undefined;
+  } else if ((computerSelection=='rock' && playerSelection== 'scissors') ||
+  (computerSelection=='scissors' && playerSelection== 'paper')||
+  computerSelection=='paper' && playerSelection== 'rock')
+   {
+     playerWins = true;
+   } else {
+     playerWins = false;
+   }
+  if(playerWins == true) {
+    return alert("You win");
+  } else if (playerWins == false) {
+    return alert("You loses")
+  } else {
+    return alert("It's draw");
 }
-/*function playRound(playerSelection, computerSelection) {
- if(playerSelection === computerSelection) {
-  return('It\'s draw');
- }
- else {
-  return('You Lose! Paper beats Rock')
- }
 }
-playRound();
 
-const computerSelection = getComputerChoice();
-console.log(playRound(playerSelection, computerSelection));
+// Determine winner of the game
 
-function game() {
- for(let i = 0; i <5; i++) {
+for (let i = 0; i<=5; i++) {
+  //prompt the player to choose rock, paper scissor
+  let playerSelection = window.prompt("Round " +i+" of 5\n" + "Rock, Paper, or Scissors?","Choose one");
+    singleRound(playerSelection, getComputerChoice);
+    //calculate scores
+    if(playerWins == true) {
+      playerScore +=1;
+    } else if (playerWins == false) {
+      compScore +=1;
+    }
+    alert("player's score: " + playerScore + " -- Computer's Score: " + compScore);
+  }
 
- }
- playRound()
-}*/
+  //Declare winner of the game 
+  if (playerScore > compScore) {
+    alert("You are the winner! :-)");
+  } else if (compScore > playerScore) {
+    alert("You Lost : -(");
+  } else {
+    alert("It's a tie");
+  }
